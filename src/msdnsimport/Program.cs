@@ -3,10 +3,10 @@
     using CommandLine;
     using MaestroPanel.MsDnsZoneManager;
     using MaestroPanelApi;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Linq;
     using System;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Text;
 
     class Program
     {
@@ -21,7 +21,6 @@
                 System.Environment.Exit(1);                
             }
 
-
             Console.WriteLine("Key: {0}", options.APIKey);
             Console.WriteLine("Host: {0}", options.Host);
 
@@ -35,6 +34,9 @@
                         
             Console.WriteLine("Zone Count: {0}", zones.Count);
             Console.WriteLine("Deploy DNS Zones to MaestroPanel...");
+
+            var count = new Stopwatch();
+            count.Start();
 
             foreach (var item in zones)
             {
@@ -51,18 +53,23 @@
                         item.SOA.SerialNumber.ToString(), 
                         item.SOA.PrimaryServer, true, records);
 
+                Console.Write("{2} {0}/{1} ", index, zones.Count, DateTime.Now);
+
                 if (r.Code != 0)
                 {
-                    System.Console.WriteLine("Error: {1}, {0}", r.Message,item.Name);                    
+                    Console.Write("Error: {1}, {0}", r.Message, item.Name);                    
                 }
                 else
                 {
-                    System.Console.WriteLine("Success: {0}", item.Name);
+                    Console.Write("Success: {0}", item.Name);
                 }
 
-                System.Console.Write(" {0}/{1}", index, zones.Count);
+                Console.Write(Environment.NewLine);
                 index++;
             }
+
+            count.Stop();
+            Console.WriteLine("Time elapsed: {0}", count.Elapsed);
         }
 
         private static string GetName(string domain, string recordName)

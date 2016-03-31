@@ -50,14 +50,14 @@
                         item.SOA.RefreshInterval.ToString(),
                         item.SOA.ResponsibleParty,
                         item.SOA.RetryDelay.ToString(),
-                        item.SOA.SerialNumber.ToString(), 
+                        item.SOA.SerialNumber.ToString(),
                         item.SOA.PrimaryServer, true, records);
 
                 Console.Write("{2} {0}/{1} ", index, zones.Count, DateTime.Now);
 
                 if (r.Code != 0)
                 {
-                    Console.Write("Error: {1}, {0}", r.Message, item.Name);                    
+                    Console.Write("Error: {1}, {0}", r.Message, item.Name);
                 }
                 else
                 {

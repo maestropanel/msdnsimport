@@ -38,11 +38,13 @@
       <HintPath>packages\CommandLineParser.1.9.71\lib\net40\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaestroPanelApi">
-      <HintPath>..\..\dep\MaestroPanelApi.dll</HintPath>
+    <Reference Include="MaestroPanel.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MaestroPanel.Api.1.0.0.0\lib\net40\MaestroPanel.Api.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="MsDnsZoneManager">
-      <HintPath>..\..\dep\MsDnsZoneManager.dll</HintPath>
+    <Reference Include="MaestroPanel.MsDnsZoneManager, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MaestroPanel.MsDnsZoneManager.1.1.0.0\lib\net40\MaestroPanel.MsDnsZoneManager.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

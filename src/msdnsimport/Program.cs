@@ -27,7 +27,7 @@
             var c = new Client(options.APIKey, options.Host, options.Port, options.SSL);
             var d = new ZoneManage();
 
-            Console.WriteLine("Loading DNS Zones...");
+            Console.WriteLine("Loading DNS Zones...");            
 
             var zones = d.GetAllZones();
             var index = 1;
@@ -39,10 +39,25 @@
             count.Start();
 
             foreach (var item in zones)
-            {
+            {                
                 var records = item.Records
                                 .Select(m => String.Format("{0},{1},{2},{3}", GetName(item.Name, m.Name), m.RecordType, m.Data, m.Priority))
                                 .ToArray();
+                
+                if (options.CreateDomain)
+                {
+                    var dnw = c.DomainCreate(item.Name, "default", item.Name, "Osman12!", false);
+
+                    if (dnw.Code == 0)
+                    {
+                        Console.WriteLine("Domain Created: {0}", item.Name);
+                    }
+                    else
+                    {
+                        Console.Write("Domain Create Error: {1}, {0}", dnw.Message, item.Name);
+                        continue;
+                    }
+                }
 
                 var r = c.SetDnsZone(item.Name,
                         item.SOA.ExpireLimit.ToString(),
@@ -101,6 +116,9 @@
 
         [Option('s', "ssl", DefaultValue = false, HelpText = "MaestroPanel Enable SSL")]
         public bool SSL { get; set; }
+
+        [Option('c', "create", DefaultValue = false, HelpText = "Create Domain")]
+        public bool CreateDomain { get; set; }
 
         [HelpOption]
         public string Usage()

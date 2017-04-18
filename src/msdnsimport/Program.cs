@@ -17,7 +17,7 @@
 
             if (!result)
             {
-                Console.WriteLine("Invalid parameters.");
+                Console.WriteLine("Invalid parameters..");
                 System.Environment.Exit(1);                
             }
 
